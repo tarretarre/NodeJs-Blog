@@ -297,7 +297,7 @@ img {
     margin: 0;
 }
 
-admin-posts-controls form {
+.admin-post-controls form {
     display: inline-block;
 }
 
