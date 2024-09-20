@@ -3,16 +3,14 @@
 </div>
 
 <section class="articles">
-
     <ul class="article-ul"></ul>
         <% data.forEach(post => { %>
             <li>
-                <a href="/post/<%= post._id %>">
+                <a href="/post/<%= post.id %>">
                     <span><%= post.title %></span>
-                    <span class="article-list__date"><%= post.createdAt.toDateString() %></span>
+                    <span class="article-list__date"><%= post.created_at.toDateString() %></span>
                 </a>
             </li>
         <% }) %>
     </ul>
-
 </section>

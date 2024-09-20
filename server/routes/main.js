@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const Post = require('../models/Post');
+const {pool} = require('../config/db');
+const bcrypt = require('bcrypt');
+//const Post = require('../models/Post');
 
 router.get('', async (req, res) => {
     try {
@@ -12,18 +14,23 @@ router.get('', async (req, res) => {
         let perPage = 3;
         let page = req.query.page || 1;
 
-        const data = await Post.aggregate([{$sort: { createdAt: -1}}])
+        const offset = (page - 1) * perPage;
+
+        const {rows} = await pool.query('SELECT * FROM posts ORDER BY created_at DESC LIMIT $1 OFFSET $2', [perPage, offset]);
+/*        const data = await Post.aggregate([{$sort: { createdAt: -1}}])
         .skip(perPage * page - perPage)
         .limit(perPage)
-        .exec();
+        .exec(); */
 
-        const count = await Post.countDocuments();
+        const countResult = await pool.query('SELECT COUNT(*) FROM posts');
+        const count = parseInt(countResult.rows[0].count);
+//        const count = await Post.countDocuments();
         const nextPage = parseInt(page) + 1;
         const hasNextPage = nextPage <= Math.ceil(count / perPage);
 
         res.render('index', { 
             locals, 
-            data,
+            data: rows,
             current: page,
             nextPage: hasNextPage ? nextPage : null,
             currentRoute: '/'
@@ -37,7 +44,9 @@ router.get('', async (req, res) => {
 router.get('/about', (req, res) => {
     const locals = {
         title: "Tarre Blog - About",
-        description: "Something about Tarre."
+        description: "Something about Tarre.",
+        linkedinUrl: process.env.LINKEDIN_URL,
+        githubUrl: process.env.GITHUB_URL
     }
     res.render('about', {
         locals,
@@ -48,7 +57,7 @@ router.get('/about', (req, res) => {
 router.get('/contact', (req, res) => {
     const locals = {
         title: "Tarre Blog - Contact",
-        description: "Contact Tarre"
+        description: "Ways to contact Tarre"
     }
     res.render('contact', {
         locals,
@@ -66,15 +75,19 @@ router.post('/search', async (req, res) => {
         let searchTerm = req.body.searchTerm;
         const searchNoSpecialChar = searchTerm.replace(/[^a-zA-Z0-9 ]/g, "");
 
-        const data = await Post.find({
+        const {rows} = await pool.query(
+            'SELECT * FROM posts WHERE title ILIKE $1 OR body ILIKE $1',
+            [`%${searchNoSpecialChar}%`]
+        );
+/*        const data = await Post.find({
             $or: [
                 {title: {$regex: new RegExp(searchNoSpecialChar, 'i')}},
                 {body: {$regex: new RegExp(searchNoSpecialChar, 'i')}},
             ]
-        });
+        }); */
 
         res.render("search", {
-            data,
+            data: rows,
             locals
         });
         
@@ -87,7 +100,9 @@ router.get('/post/:id', async (req, res) => {
     try {
         let slug = req.params.id;
 
-        const data = await Post.findById({_id: slug});
+        const {rows} = await pool.query('SELECT * FROM posts WHERE id = $1', [slug]);
+        const data = rows[0];
+//        const data = await Post.findById({_id: slug});
 
         const locals = {
             title: data.title,
@@ -105,6 +120,52 @@ router.get('/post/:id', async (req, res) => {
 }); 
 
 module.exports = router;
+
+/* router.post('/register', async(req, res) => {
+    const {username, password} = req.body;
+
+    try {
+        const existingUser = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
+
+        if (existingUser.rowCount.length > 0) {
+            return res.status(400).send('Username already registered.');
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        await pool.query('INSERT INTO users (username, password) VALUES ($1, $2)', [username, hashedPassword]);
+
+        res.redirect('/');
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Something went wrong when register.');
+    }
+}); */
+
+/* async function insertPostData() {
+    const posts = [
+        {
+            title: "Building a blog",
+            body: "This is my first blog from NodeJs, Express and PostgreSQL."
+        }
+    ];
+
+    try {
+        for (const post of posts) {
+            await pool.query(
+                'INSERT INTO posts (title, body, created_at, updated_at) VALUES ($1, $2, NOW(), NOW())',
+                [post.title, post.body]
+            );
+        }
+        console.log("Posts inserted successfully.");
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+(async () => {
+    await insertPostData();
+})(); */
 
 /*function insertPostData() {
     Post.insertMany([

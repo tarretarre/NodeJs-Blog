@@ -1,18 +1,17 @@
 <div class="author">
-    <h1 class="author__heading">Hi, I am Tarre.</h1>
-    <p class="author__body">Java developer, soon.</p>
+    <h1 class="author__heading">Welcome to my blog</h1>
+    <p class="author__body">Java developer, soon to be. Please follow my journey.</p>
+    <p class="author__body"><img src="/img/tarre-round.png" alt="Tarre looking out through the window" class="tarre-image-index"></p>
 </div>
-
-<img src="/img/tarre4.png" alt="Tarre looking out through the window" class="tarre-image">
 
 <section class="articles">
     <h2 class="articles__heading">Latest Posts</h2>
     <ul class="article-ul">
         <% data.forEach(post => { %>
             <li>
-                <a href="/post/<%= post._id %>">
+                <a href="/post/<%= post.id %>">
                     <span><%= post.title %></span>
-                    <span class="article-list__date"><%= post.createdAt.toDateString() %></span>
+                    <span class="article-list__date"><%= post.created_at.toDateString() %></span>
                 </a>
             </li>
         <% }) %>
@@ -22,5 +21,4 @@
         <a href="/?page=<%= nextPage %>" class="pagination">&lt; View Older Posts</a>
     <% } %>
 
-    
 </section>

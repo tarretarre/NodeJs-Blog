@@ -1,10 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');
 
 :root {
     --orange: #EF9C66;
     --mustard: #FCDC94;
     --moss: #C8CFA0;
     --teal: #78ABA8;
+    --darkteal: #578d89;
     --red: #D11A2A;
     --font-size-base: 1rem;
     --font-size-md: clamp(1.25rem, 0.61vw + 1.1rem, 1.58rem);
@@ -14,14 +15,19 @@
 }
 
 body {
-    font-family: 'Poppin', sans-serif;
+    font-family: 'EB Garamond', serif;
     color: darkslategray;
     font-size: var(--font-size-base);
     background-color: var(--teal);
     margin: 0;
 }
 
-a {color: var(--moss);}
+a {
+    font-size: var(--font-size-md);
+    color: var(--moss);
+    text-decoration: none;
+}
+
 h1 {font-size: var(--font-size-xl);}
 h2 {font-size: var(--font-size-lg);}
 h3 {font-size: var(--font-size-md);}
@@ -33,8 +39,8 @@ input[type="password"],
 input[type="search"],
 select,
 textarea {
-    font-family: 'Poppins', sans-serif;
-    font-size: var(--font-size-base);
+    font-family: 'EB Garamond', serif;
+    font-size: var(--font-size-md);
     display: block;
     box-sizing: border-box;
     width: 100%;
@@ -58,7 +64,7 @@ textarea {
 }
 
 img {
-    width: 100%;
+    width: 50%;
     height: auto;
 }
 
@@ -72,8 +78,24 @@ img {
     padding: 20px 0;
 }
 
-.tarre-image {
+.tarre-image-index {
     max-height: 528px;
+    filter: drop-shadow(0px 20px 15px rgba(0,0,0,0.25));
+    overflow: hidden;
+    border-radius: var(--border-radius);
+}
+
+.tarre-image-about-me {
+    max-height: 428px;
+    width: auto;
+    filter: drop-shadow(0px 20px 15px rgba(0,0,0,0.25));
+    overflow: hidden;
+    border-radius: var(--border-radius);
+}
+
+.tarre-image-contact {
+    max-height: 328px;
+    width: auto;
     filter: drop-shadow(0px 20px 15px rgba(0,0,0,0.25));
     overflow: hidden;
     border-radius: var(--border-radius);
@@ -102,7 +124,7 @@ img {
 .header__logo {
     grid-area: logo;
     font-weight: 800;
-    font-size: 25px;
+    font-size: 30px;
     text-decoration: none;
 }
 
@@ -120,6 +142,7 @@ img {
     grid-area: button;
     display: flex;
     justify-content: flex-end;
+    cursor: pointer;
 }
 
 .header__button button {
@@ -251,6 +274,13 @@ img {
 
 .article {
     white-space: pre-wrap;
+    text-align: left;
+    background-color: var(--darkteal);
+    padding: 20px;
+    border-radius: 8px;
+    filter: drop-shadow(0px 10px 7px rgba(0,0,0,0.25));
+    color: var(--mustard);
+    font-size: var(--font-size-md);
 }
 
 .footer {
@@ -282,8 +312,9 @@ img {
     position: absolute;
     top: 0;
     right: 0;
-    color: var(--orange);
+    color: darkslategray;
     padding: 15px;
+    cursor: pointer;
 }
 
 .admin-title {
