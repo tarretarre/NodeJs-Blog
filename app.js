@@ -5,6 +5,7 @@ const expressLayout = require('express-ejs-layouts');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const {NODE_ENV} = process.env;
 
 const {connectDB} = require('./server/config/db');
 const {isActiveRoute} = require('./server/helpers/routeHelpers');
@@ -34,6 +35,8 @@ app.locals.isActiveRoute = isActiveRoute;
 app.use('/', require('./server/routes/main'));
 app.use('/', require('./server/routes/admin'));
 
-connectDB();
+if (NODE_ENV !== 'test') {
+    connectDB();
+}
 
 module.exports = app;
