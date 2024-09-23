@@ -10,7 +10,6 @@ const {connectDB} = require('./server/config/db');
 const {isActiveRoute} = require('./server/helpers/routeHelpers');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -37,8 +36,4 @@ app.use('/', require('./server/routes/admin'));
 
 connectDB();
 
-app.listen(PORT, () => {
-    console.log(`App listening on port ${PORT}`);
-});
-
-/* Trigger 4 */
+module.exports = app;

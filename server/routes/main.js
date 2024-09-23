@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const {pool} = require('../config/db');
 const bcrypt = require('bcryptjs');
-//const Post = require('../models/Post');
 
 router.get('', async (req, res) => {
     try {
@@ -17,14 +16,9 @@ router.get('', async (req, res) => {
         const offset = (page - 1) * perPage;
 
         const {rows} = await pool.query('SELECT * FROM posts ORDER BY created_at DESC LIMIT $1 OFFSET $2', [perPage, offset]);
-/*        const data = await Post.aggregate([{$sort: { createdAt: -1}}])
-        .skip(perPage * page - perPage)
-        .limit(perPage)
-        .exec(); */
 
         const countResult = await pool.query('SELECT COUNT(*) FROM posts');
         const count = parseInt(countResult.rows[0].count);
-//        const count = await Post.countDocuments();
         const nextPage = parseInt(page) + 1;
         const hasNextPage = nextPage <= Math.ceil(count / perPage);
 
@@ -79,12 +73,6 @@ router.post('/search', async (req, res) => {
             'SELECT * FROM posts WHERE title ILIKE $1 OR body ILIKE $1',
             [`%${searchNoSpecialChar}%`]
         );
-/*        const data = await Post.find({
-            $or: [
-                {title: {$regex: new RegExp(searchNoSpecialChar, 'i')}},
-                {body: {$regex: new RegExp(searchNoSpecialChar, 'i')}},
-            ]
-        }); */
 
         res.render("search", {
             data: rows,
@@ -102,7 +90,6 @@ router.get('/post/:id', async (req, res) => {
 
         const {rows} = await pool.query('SELECT * FROM posts WHERE id = $1', [slug]);
         const data = rows[0];
-//        const data = await Post.findById({_id: slug});
 
         const locals = {
             title: data.title,

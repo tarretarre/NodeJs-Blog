@@ -10,7 +10,6 @@ const pool = new Pool({
 const connectDB = async () => {
     try {
         await pool.connect();
-        console.log('PostgreSQL Db Connected');
     } catch (error) {
         console.log(error)
     }
