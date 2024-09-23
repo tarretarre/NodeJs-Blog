@@ -1,9 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {pool} = require('../config/db');
-//const Post = require('../models/Post');
-//const User = require('../models/User');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const adminLayout = '../views/layouts/admin';
@@ -29,7 +27,7 @@ router.get('/admin', async (req, res) => {
     try {
         const locals = {
             title: "Admin",
-            description: "Simple Blog created with NodeJs, Express & MongoDb."
+            description: "Simple Blog created with NodeJs, Express & PostgreSQL."
     }
 
     res.render('admin/index', {
@@ -45,7 +43,6 @@ router.post('/admin', async (req, res) => {
     try {
         const {username, password} = req.body;
         const {rows} = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
-//        const user = await User.findOne({username});
 
         if(rows.length === 0){
             return res.status(401).json({message: 'Invalid credentials.'});
@@ -75,7 +72,6 @@ router.post('/register', async (req, res) => {
 
         try {
             const {rows} = await pool.query('INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *', [username, hashedPassword]);
-//            const user = await User.create({username, password:hashedPassword});
             res.status(201).json({message: 'User Created', user: rows[0]});
         } catch (error) {
             if(error.code === 23505) {
@@ -98,7 +94,6 @@ router.get('/dashboard', authMiddleware, async (req, res) => {
         }
 
         const {rows} = await pool.query('SELECT * FROM posts');
-//        const data = await Post.find();
         res.render('admin/dashboard', {
             locals,
             data: rows,
@@ -151,7 +146,6 @@ router.get('/edit-post/:id', authMiddleware, async (req, res) => {
 
         const {rows} = await pool.query('SELECT * FROM posts WHERE id = $1', [req.params.id]);
         const data = rows[0];
-//        const data = await Post.findOne({ _id: req.params.id});
 
         res.render('admin/edit-post', {
             locals,
@@ -171,11 +165,6 @@ router.put('/edit-post/:id', authMiddleware, async (req, res) => {
                 req.body.body,
                 req.params.id
             ]);
-//        await Post.findByIdAndUpdate(req.params.id, {
-//            title: req.body.title,
-//            body: req.body.body,
-//            updatedAt: Date.now()
-//        });
 
         res.redirect(`/edit-post/${req.params.id}`);
 
@@ -187,7 +176,6 @@ router.put('/edit-post/:id', authMiddleware, async (req, res) => {
 router.delete('/delete-post/:id', authMiddleware, async (req, res) => {
     try {
         await pool.query('DELETE FROM posts WHERE id = $1', [req.params.id]);
-//        await Post.deleteOne({_id: req.params.id});
         res.redirect('/dashboard');
     } catch (error) {
         console.log(error);
@@ -198,20 +186,5 @@ router.get('/logout', (req, res) => {
     res.clearCookie('token');
     res.redirect('/');
 });
-
-/* router.post('/admin', async (req, res) => {
-    try {
-        const {username, password} = req.body;
-
-        if (req.body.username === 'admin' && req.body.password === 'password'){
-            res.send('You are logged in.');
-        } else {
-            res.send('Wrong username or password');
-        }
-
-    } catch (error) {
-        console.log(error);
-    }
-}); */
 
 module.exports = router;

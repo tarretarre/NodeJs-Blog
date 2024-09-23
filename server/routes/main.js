@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const {pool} = require('../config/db');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 //const Post = require('../models/Post');
 
 router.get('', async (req, res) => {
     try {
         const locals = {
             title: "Tarre Blog - Home",
-            description: "Simple Blog created with NodeJs, Express & MongoDb."
+            description: "Simple Blog created with NodeJs, Express & PostgreSQL."
         }
 
         let perPage = 3;
@@ -69,7 +69,7 @@ router.post('/search', async (req, res) => {
     try {
         const locals = {
             title: "Search",
-            description: "Simple Blog created with NodeJs, Express & MongoDb."
+            description: "Simple Blog created with NodeJs, Express & PostgreSQL."
         }
 
         let searchTerm = req.body.searchTerm;
@@ -106,7 +106,7 @@ router.get('/post/:id', async (req, res) => {
 
         const locals = {
             title: data.title,
-            description: "Simple Blog created with NodeJs, Express & MongoDb.",
+            description: "Simple Blog created with NodeJs, Express & PostgreSQL.",
         }
 
         res.render('post', {
@@ -121,7 +121,7 @@ router.get('/post/:id', async (req, res) => {
 
 module.exports = router;
 
-/* router.post('/register', async(req, res) => {
+/*router.post('/register', async(req, res) => {
     const {username, password} = req.body;
 
     try {
@@ -140,7 +140,7 @@ module.exports = router;
         console.log(error);
         res.status(500).send('Something went wrong when register.');
     }
-}); */
+});*/
 
 /* async function insertPostData() {
     const posts = [
