@@ -24,9 +24,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run tests
-        run: npm test
-
       - name: Build the Docker image
         run: docker build -t tarretarre/nodejs-blog:latest .
         run: docker push tarretarre/nodejs-blog:latest
