@@ -44,7 +44,7 @@ router.get('', async (req, res) => {
 router.get('/about', (req, res) => {
     const locals = {
         title: "Tarre Blog - About",
-        description: "Something about Tarre.",
+        description: "Something about Tarre. ",
         linkedinUrl: process.env.LINKEDIN_URL,
         githubUrl: process.env.GITHUB_URL
     }
