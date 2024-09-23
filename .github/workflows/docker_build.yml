@@ -10,6 +10,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Check Node.js version
+        run: node -v
+
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -34,8 +42,3 @@ jobs:
       - name: Push the Docker image
         run: |
           docker push tarretarre/nodejs-blog:latest
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '20'
