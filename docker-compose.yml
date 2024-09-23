@@ -3,7 +3,7 @@ services:
   app:
     build: .
     ports:
-      - "5432:5432"
+      - "5000:5000"
     environment:
       DATABASE_URL: ${PG_URL}
     volumes:
