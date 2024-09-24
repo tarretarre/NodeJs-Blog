@@ -11,6 +11,6 @@ describe('GET /about', () => {
         const response = await request(app).get('/about');
 
         expect(response.status).toBe(200);
-        expect(response.text).toContain('Find out more about Tarre');
+        expect(response.text).toContain('Find out more about Jarre');
     });
 });
