@@ -34,7 +34,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Run Tests
-      run: npm test
+      run: npm run test
 
     - name: Trigger Render Deploy Hook
       run: curl -X POST ${{secrets.RENDER_DEPLOY_HOOK_URL}}
