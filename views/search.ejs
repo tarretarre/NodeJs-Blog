@@ -1,16 +1,18 @@
-<div class="author">
-    <h1 class="author__heading">Search Resuults</h1>
-</div>
+<main class="main-admin">
+    <div class="author">
+        <h1 class="author__heading">Search Results:</h1>
+    </div>
 
-<section class="articles">
-    <ul class="article-ul"></ul>
-        <% data.forEach(post => { %>
-            <li>
-                <a href="/post/<%= post.id %>">
-                    <span><%= post.title %></span>
-                    <span class="article-list__date"><%= post.created_at.toDateString() %></span>
-                </a>
-            </li>
-        <% }) %>
-    </ul>
-</section>
+    <section class="articles">
+        <ul class="article-ul">
+            <% data.forEach(post => { %>
+                <li>
+                    <a href="/post/<%= post.id %>">
+                        <span><%= post.title %></span>
+                        <span class="article-list__date"><%= post.created_at.toDateString() %></span>
+                    </a>
+                </li>
+            <% }) %>
+        </ul>
+    </section>
+</main>
