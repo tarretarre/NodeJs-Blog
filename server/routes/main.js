@@ -6,11 +6,11 @@ const bcrypt = require('bcryptjs');
 router.get('', async (req, res) => {
     try {
         const locals = {
-            title: "Tarre Blog - Home",
+            title: "Tuan Blog - Home",
             description: "Simple Blog created with NodeJs, Express & PostgreSQL."
         }
 
-        let perPage = 3;
+        let perPage = 10;
         let page = req.query.page || 1;
 
         const offset = (page - 1) * perPage;
@@ -37,8 +37,8 @@ router.get('', async (req, res) => {
 
 router.get('/about', (req, res) => {
     const locals = {
-        title: "Tarre Blog - About",
-        description: "Something about Tarre. ",
+        title: "Tuan Blog - About",
+        description: "Something about Tuan. ",
         linkedinUrl: process.env.LINKEDIN_URL,
         githubUrl: process.env.GITHUB_URL
     }
@@ -50,8 +50,10 @@ router.get('/about', (req, res) => {
 
 router.get('/contact', (req, res) => {
     const locals = {
-        title: "Tarre Blog - Contact",
-        description: "Ways to contact Tarre"
+        title: "Tuan Blog - Contact",
+        description: "Ways to contact Tuan",
+        linkedinUrl: process.env.LINKEDIN_URL,
+        githubUrl: process.env.GITHUB_URL
     }
     res.render('contact', {
         locals,
@@ -62,8 +64,8 @@ router.get('/contact', (req, res) => {
 router.post('/search', async (req, res) => {
     try {
         const locals = {
-            title: "Search",
-            description: "Simple Blog created with NodeJs, Express & PostgreSQL."
+            title: "Tuan Blog - Search",
+            description: "Simple blog created with NodeJs, Express & PostgreSQL."
         }
 
         let searchTerm = req.body.searchTerm;
@@ -93,7 +95,7 @@ router.get('/post/:id', async (req, res) => {
 
         const locals = {
             title: data.title,
-            description: "Simple Blog created with NodeJs, Express & PostgreSQL.",
+            description: "Simple blog created with NodeJs, Express & PostgreSQL.",
         }
 
         res.render('post', {
@@ -174,8 +176,8 @@ insertPostData();*/
 
 /*router.get('', async (req, res) => {
     const locals = {
-            title: "Tarre Blog",
-            description: "Simple Blog created with NodeJs, Express & MongoDb."
+            title: "Tuan Blog",
+            description: "Simple blog created with NodeJs, Express & MongoDb."
     }
 
     try {

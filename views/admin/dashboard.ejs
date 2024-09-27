@@ -1,10 +1,10 @@
+<main class="main-admin">
 <div class="admin-title">
     <h2>Posts</h2>
-    <a href="/add-post" class="button">+ Add New</a>
+    <a href="/add-post" class="btn-add-new">+ Add New</a>
 </div>
 
 <ul class="admin-posts">
-    
     <% data.forEach(post => { %>
         <li>
             <a href="/post/<%= post.id %>">
@@ -20,3 +20,4 @@
         </li>
     <% }) %>
 </ul>
+</main>

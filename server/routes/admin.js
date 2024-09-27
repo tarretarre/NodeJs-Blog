@@ -27,7 +27,7 @@ router.get('/admin', async (req, res) => {
     try {
         const locals = {
             title: "Admin",
-            description: "Simple Blog created with NodeJs, Express & PostgreSQL."
+            description: "Simple blog created with NodeJs, Express & PostgreSQL."
     }
 
     res.render('admin/index', {
@@ -90,7 +90,7 @@ router.get('/dashboard', authMiddleware, async (req, res) => {
     try {
         const locals = {
             title: 'Dashboard',
-            description: 'Simple Blog created with NodeJs, Express & PostgreSQL'
+            description: 'Simple blog created with NodeJs, Express & PostgreSQL'
         }
 
         const {rows} = await pool.query('SELECT * FROM posts');
@@ -110,7 +110,7 @@ router.get('/add-post', authMiddleware, async (req, res) => {
     try {
         const locals = {
             title: 'Add Post',
-            description: 'Simple Blog created with NodeJs, Express & PostgreSQL'
+            description: 'Simple blog created with NodeJs, Express & PostgreSQL'
         }
 
         res.render('admin/add-post', {
@@ -141,7 +141,7 @@ router.get('/edit-post/:id', authMiddleware, async (req, res) => {
 
         const locals = {
             title: 'Edit Post',
-            description: 'Simple Blog created with NodeJs, Express & PostgreSQL'
+            description: 'Simple blog created with NodeJs, Express & PostgreSQL'
         }
 
         const {rows} = await pool.query('SELECT * FROM posts WHERE id = $1', [req.params.id]);
