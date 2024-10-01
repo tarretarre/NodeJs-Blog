@@ -23,6 +23,7 @@ router.get('', async (req, res) => {
         const hasNextPage = nextPage <= Math.ceil(count / perPage);
 
         res.render('index', { 
+            activePage: "Home",
             locals, 
             data: rows,
             current: page,
@@ -43,6 +44,7 @@ router.get('/about', (req, res) => {
         githubUrl: process.env.GITHUB_URL
     }
     res.render('about', {
+        activePage: "About",
         locals,
         currentRoute: '/about'
     });
@@ -56,6 +58,7 @@ router.get('/contact', (req, res) => {
         githubUrl: process.env.GITHUB_URL
     }
     res.render('contact', {
+        activePage: "Contact",
         locals,
         currentRoute: '/contact'
     });

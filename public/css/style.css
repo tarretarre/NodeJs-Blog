@@ -303,8 +303,12 @@ img {
     color: var(--moss);
 }
 
+.header__nav ul li.active a {
+    color: darkslategray;
+}
+
 .header__nav ul a.active {
-    color: var(--mustard);
+    color: darkslategray;
 }
 
 .author {

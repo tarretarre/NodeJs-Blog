@@ -16,13 +16,13 @@
        <nav class="header__nav">
            <ul>
                <li>
-                   <a href="/" class="">Home</a>
+                   <a href="/" class="<%= activePage === 'Home' ? 'active' : '' %>">Home</a>
                </li>
                <li>
-                   <a href="/about" class="">About</a>
+                   <a href="/about" class="<%= activePage === 'About' ? 'active' : '' %>">About</a>
                </li>
                <li>
-                   <a href="/contact" class="">Contact</a>
+                   <a href="/contact" class="<%= activePage === 'Contact' ? 'active' : '' %>">Contact</a>
                </li>
            </ul>
        </nav>
