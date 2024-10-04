@@ -28,11 +28,22 @@ Make sure you have the following installed on your machine:
     npm install
     ```
 
-3. Copy `.env.example` file to your .env-file and add in the root directory with the your database credentials.
+3. Change name of `.env.example`-file to your `.env` and update the credentials according to your database.
 
-4. Create a table with posts in your database with these columns:
-   - Title
-   - Body
+4. Create a table with posts in your database, find example below:
+   ```
+   CREATE TABLE posts (
+       id SERIAL PRIMARY KEY,
+       title VARCHAR(255) NOT NULL,
+       body TEXT NOT NULL,
+       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+   );
+
+   INSERT INTO posts (title, body, created_at, updated_at) 
+   VALUES 
+       ('Building a blog', 'This is my first blog from NodeJs, Express and PostgreSQL.', NOW(), NOW());
+   ```
 
 5. Run the application:
     ```bash
